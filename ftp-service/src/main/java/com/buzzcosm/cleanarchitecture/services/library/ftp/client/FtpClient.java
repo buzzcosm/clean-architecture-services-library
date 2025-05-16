@@ -1,5 +1,6 @@
 package com.buzzcosm.cleanarchitecture.services.library.ftp.client;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
@@ -9,6 +10,7 @@ public interface FtpClient {
     void close() throws IOException;
     Collection<String> listFiles(String path) throws IOException;
     void downloadFile(String source, String destination) throws IOException;
+    ByteArrayOutputStream streamFile(String path) throws IOException;
     void uploadFile(File file, String path) throws IOException;
     void deleteFile(String path) throws IOException;
 }

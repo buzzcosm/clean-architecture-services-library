@@ -1,6 +1,7 @@
 package com.buzzcosm.cleanarchitecture.services.library.ftp.client.impl;
 
 import com.buzzcosm.cleanarchitecture.services.library.ftp.client.FtpClient;
+import com.buzzcosm.cleanarchitecture.services.library.ftp.client.BufferSize;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
@@ -62,6 +63,19 @@ public class FtpClientSimpleImpl implements FtpClient {
         try (FileOutputStream out = new FileOutputStream(destination)) {
             ftp.retrieveFile(source, out);
         }
+    }
+
+    @Override
+    public ByteArrayOutputStream streamFile(String path) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[BufferSize.BUFFER_8KB.getSize()];
+        try (InputStream in = ftp.retrieveFileStream(path)) {
+            int bytesRead;
+            while ((bytesRead = in.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        }
+        return outputStream;
     }
 
     @Override
