@@ -12,6 +12,7 @@
 
 	<modules>
 		<module>parent-test-service</module>
+		<module>ftp-service</module>
 	</modules>
 
 	<properties>
@@ -48,6 +49,11 @@
 			<artifactId>mapstruct</artifactId>
 			<version>${mapstruct.version}</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
